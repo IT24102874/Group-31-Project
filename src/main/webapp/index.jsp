@@ -61,17 +61,17 @@
 <!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container">
-        <a class="navbar-brand" href="<%= request.getContextPath() %>/JSP/index.jsp">CardioCare</a>
+        <a class="navbar-brand" href="<%= request.getContextPath() %>/index.jsp">CardioCare</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" href="<%= request.getContextPath() %>/JSP/index.jsp">Home</a>
+                    <a class="nav-link active" href="<%= request.getContextPath() %>/index.jsp">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<%= request.getContextPath() %>/JSP/login.jsp">Login</a>
+                    <a class="nav-link" href="<%= request.getContextPath() %>/login.jsp">Login</a>
                 </li>
             </ul>
         </div>
@@ -83,7 +83,7 @@
     <div class="container">
         <h1>Welcome to CardioCare</h1>
         <p>Your trusted platform for cardiology appointments with top specialists</p>
-        <a href="<%= request.getContextPath() %>/JSP/register.jsp" class="btn btn-lg btn-light mt-4">Register Now</a>
+        <a href="<%= request.getContextPath() %>/register.jsp" class="btn btn-lg btn-light mt-4">Register Now</a>
     </div>
 </section>
 
