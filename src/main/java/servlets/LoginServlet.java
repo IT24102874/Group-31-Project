@@ -41,7 +41,7 @@ public class LoginServlet extends HttpServlet {
             response.sendRedirect("dashboard.html");
         } else {
             // Redirect to login page with error message
-            response.sendRedirect("login.html?error=Invalid Credentials");
+            response.sendRedirect("login.jsp?error=Invalid Credentials");
         }
     }
 }
