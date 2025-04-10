@@ -7,7 +7,7 @@ import java.util.List;
 
 
 public class FileHandler {
-    private static final String FILE_PATH = "D:/USERS/Desktop/TDH/Sliit/OOP/sample/Medical/file/users.txt";
+    private static final String FILE_PATH = "file/users.txt";
 
 
 
