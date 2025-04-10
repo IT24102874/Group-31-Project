@@ -24,7 +24,7 @@
     <button type="submit" class="btn btn-success">Login</button>
   </form>
   <p class="mt-3">Don't have an account?
-    <a href="<%= request.getContextPath() %>/JSP/register.jsp">Register here</a>
+    <a href="<%= request.getContextPath() %>/register.jsp">Register here</a>
   </p>
 </div>
 
