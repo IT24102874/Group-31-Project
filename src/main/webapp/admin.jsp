@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -86,7 +87,9 @@
 
     <section id="logout">
         <h3>Logout</h3>
-        <button class="btn btn-danger">Logout</button>
+        <form action="logout.jsp" method="post">
+            <button class="btn btn-danger">Logout</button>
+        </form>
     </section>
 </div>
 </body>
