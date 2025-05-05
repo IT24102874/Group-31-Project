@@ -61,7 +61,7 @@
 <div class="container">
     <h2>User Registration</h2>
 
-    <form action="<%= request.getContextPath() %>/user-register" method="post">
+    <form action="<%= request.getContextPath() %>/register" method="post">
         <label for="name">Full Name</label>
         <input type="text" id="name" name="name" required>
 

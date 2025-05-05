@@ -10,7 +10,7 @@ import utils.FileHandler;
 import java.io.IOException;
 
 
-@WebServlet("/user-register")
+@WebServlet("/register")
 public class RegisterServlet extends HttpServlet {
 
     @Override

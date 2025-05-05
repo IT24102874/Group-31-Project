@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.List;
 
 
-@WebServlet("/user-login") // This servlet is mapped to "/login" URL
+@WebServlet("/login") // This servlet is mapped to "/login" URL
 public class LoginServlet extends HttpServlet {
 
     @Override
