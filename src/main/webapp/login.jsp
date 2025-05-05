@@ -23,11 +23,13 @@
     </div>
     <button type="submit" class="btn btn-success">Login</button>
   </form>
+  <form action="<%= request.getContextPath() %>/login" method="post"></form>
   <p class="mt-3">Don't have an account?
     <a href="<%= request.getContextPath() %>/register.jsp">Register here</a>
   </p>
 
 </div>
+
 
 </body>
 </html>
