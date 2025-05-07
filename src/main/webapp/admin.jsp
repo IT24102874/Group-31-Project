@@ -1,75 +1,131 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/dashboard.css">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding: 20px;
+        }
+        .dashboard-card {
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #f8f9fa;
+        }
+        .card-box {
+            padding: 15px;
+            border-radius: 8px;
+            color: white;
+        }
+        .card-blue {
+            background-color: #0d6efd;
+        }
+    </style>
 </head>
 <body>
-<div class="container mt-5">
-    <h2 class="mb-4">Admin Dashboard</h2>
 
-    <!-- Show operation status -->
-    <%
-        String status = request.getParameter("status");
-        if (status != null) {
-    %>
-    <div class="alert alert-info">Action Status: <%= status %></div>
-    <%
-        }
-    %>
+<div class="container">
+    <div class="dashboard-card">
+        <h2>Admin Dashboard</h2>
+        <p>Welcome, System Admin</p>
 
-    <!-- Payment Approval Section -->
-    <div class="card mb-4">
-        <div class="card-header">Payment Management</div>
-        <div class="card-body">
-            <form action="admin" method="post" class="form-inline mb-2">
-                <input type="hidden" name="action" value="approvePayment">
-                <input type="text" name="paymentId" placeholder="Payment ID" class="form-control mr-2" required>
-                <button type="submit" class="btn btn-success">Approve Payment</button>
-            </form>
-            <form action="admin" method="post" class="form-inline">
-                <input type="hidden" name="action" value="rejectPayment">
-                <input type="text" name="paymentId" placeholder="Payment ID" class="form-control mr-2" required>
-                <button type="submit" class="btn btn-danger">Reject Payment</button>
-            </form>
+        <!-- Dashboard Summary Cards -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="card-box card-blue">
+                    <h5>Total Users</h5>
+                    <p>1,234</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card-box card-blue">
+                    <h5>Pending Approvals</h5>
+                    <p>5</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card-box card-blue">
+                    <h5>Marked for Deletion</h5>
+                    <p>12</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card-box card-blue">
+                    <h5>System Logs</h5>
+                    <p>87</p>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <!-- User Management Section -->
-    <div class="card">
-        <div class="card-header">User Management</div>
-        <div class="card-body">
-            <!-- Create User -->
-            <h5>Create User</h5>
-            <form action="admin" method="post" class="form-inline mb-3">
-                <input type="hidden" name="action" value="createUser">
-                <input type="text" name="username" placeholder="Username" class="form-control mr-2" required>
-                <input type="email" name="email" placeholder="Email" class="form-control mr-2" required>
-                <input type="text" name="role" placeholder="Role" class="form-control mr-2" required>
-                <button type="submit" class="btn btn-primary">Create</button>
-            </form>
+        <!-- Manage User Accounts -->
+        <h4>Manage User Accounts</h4>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Username</th>
+                <th>Role</th>
+                <th>Email</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>john123</td>
+                <td>Patient</td>
+                <td>john@example.com</td>
+                <td><button class="btn btn-danger btn-sm">Delete</button></td>
+            </tr>
+            <tr>
+                <td>doc.kate</td>
+                <td>Doctor</td>
+                <td>kate@example.com</td>
+                <td><button class="btn btn-danger btn-sm">Delete</button></td>
+            </tr>
+            <tr>
+                <td>mike456</td>
+                <td>Patient</td>
+                <td>mike@example.com</td>
+                <td><button class="btn btn-danger btn-sm">Delete</button></td>
+            </tr>
+            </tbody>
+        </table>
 
-            <!-- Update User -->
-            <h5>Update User</h5>
-            <form action="admin" method="post" class="form-inline mb-3">
-                <input type="hidden" name="action" value="updateUser">
-                <input type="text" name="userId" placeholder="User ID" class="form-control mr-2" required>
-                <input type="email" name="email" placeholder="New Email" class="form-control mr-2">
-                <input type="text" name="role" placeholder="New Role" class="form-control mr-2">
-                <button type="submit" class="btn btn-warning">Update</button>
-            </form>
+        <!-- Approve Payments -->
+        <h4>Approve Payments</h4>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Payment ID</th>
+                <th>Patient</th>
+                <th>Amount</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>1001</td>
+                <td>john123</td>
+                <td>$200.00</td>
+                <td>
+                    <button class="btn btn-success btn-sm">Approve</button>
+                </td>
+            </tr>
+            <tr>
+                <td>1002</td>
+                <td>mike456</td>
+                <td>$150.00</td>
+                <td>
+                    <button class="btn btn-danger btn-sm">Reject</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
 
-            <!-- Delete User -->
-            <h5>Delete User</h5>
-            <form action="admin" method="post" class="form-inline">
-                <input type="hidden" name="action" value="deleteUser">
-                <input type="text" name="userId" placeholder="User ID" class="form-control mr-2" required>
-                <button type="submit" class="btn btn-danger">Delete</button>
-            </form>
-        </div>
+        <a href="logout.jsp" class="btn btn-secondary mt-3">Logout</a>
     </div>
 </div>
+
 </body>
 </html>

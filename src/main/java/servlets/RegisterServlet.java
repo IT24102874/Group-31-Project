@@ -5,7 +5,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import models.User;
-import utils.FileHandler;
+import FileHandler.FileHandler;
 
 import java.io.IOException;
 
