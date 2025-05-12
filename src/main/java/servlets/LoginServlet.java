@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.List;
 
 
-@WebServlet("/login")
+@WebServlet("/user_login")
 public class LoginServlet extends HttpServlet {
 
     @Override

@@ -12,7 +12,7 @@
 
 <div class="container mt-5">
   <h2 class="text-center">User Login</h2>
-  <form action="<%= request.getContextPath() %>/login" method="post">
+  <form action="<%= request.getContextPath() %>/user_login" method="post">
     <div class="mb-3">
       <label class="form-label">Username</label>
       <input type="text" class="form-control" name="username" required>
@@ -23,7 +23,7 @@
     </div>
     <button type="submit" class="btn btn-success">Login</button>
   </form>
-  <form action="<%= request.getContextPath() %>/login" method="post"></form>
+  <form action="<%= request.getContextPath() %>/user_login" method="post"></form>
   <p class="mt-3">Don't have an account?
     <a href="<%= request.getContextPath() %>/register.jsp">Register here</a>
   </p>
