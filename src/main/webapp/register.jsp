@@ -3,92 +3,130 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Registration</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Styling -->
     <style>
         body {
+            background-color: #b3ecff;
             font-family: Arial, sans-serif;
-            background-color: #b4ecff;
-            margin: 0;
-            padding: 0;
         }
-        .container {
-            width: 100%;
-            max-width: 500px;
-            margin: 50px auto;
-            padding: 20px;
+
+        .wrapper {
+            display: flex;
+            width: 90%;
+            max-width: 1000px;
             background-color: white;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin: 80px auto 40px auto;
         }
+
+        .form-left {
+            flex: 1;
+            background-image:  url('<%= request.getContextPath() %>/images/registration.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .form-right {
+            flex: 1;
+            padding: 40px 30px;
+        }
+
         h2 {
-            text-align: center;
             margin-bottom: 20px;
-        }
-        label {
-            font-size: 14px;
-            font-weight: bold;
-            margin-bottom: 5px;
-            display: block;
-        }
-        input[type="text"], input[type="email"], input[type="password"], select {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #42dc75;
-        }
-        p {
             text-align: center;
+        }
+
+        .btn-primary {
+            width: 100%;
+        }
+
+        .login-link {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .wrapper {
+                flex-direction: column;
+            }
+
+            .form-left {
+                height: 200px;
+            }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h2>User Registration</h2>
 
-    <form action="<%= request.getContextPath() %>/user_register" method="post">
-        <label for="name">Full Name</label>
-        <input type="text" id="name" name="name" required>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand" href="<%= request.getContextPath() %>/index.jsp">CardioCare</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" href="<%= request.getContextPath() %>/index.jsp">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<%= request.getContextPath() %>/login.jsp">Login</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
-        <label for="phone">Phone Number</label>
-        <input type="text" id="phone" name="phone" required>
 
-        <label for="email">Email Address</label>
-        <input type="email" id="email" name="email" required>
-
-        <label for="role">Role</label>
-        <select id="role" name="role" required>
-            <option value="">Select a role</option>
-            <option value="Doctor">Doctor</option>
-            <option value="Patient">Patient</option>
-        </select>
-
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" required>
-
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" required>
-
-        <button type="submit">Register</button>
-
-        <p>Already have an account? <a href="<%= request.getContextPath() %>/login.jsp">Login here</a></p>
-    </form>
+<div class="wrapper">
+    <div class="form-left"></div>
+    <div class="form-right">
+        <h2>User Registration</h2>
+        <form action="<%= request.getContextPath() %>/user_register" method="post">
+            <div class="mb-3">
+                <label for="name" class="form-label">Full Name</label>
+                <input type="text" name="name" id="name" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="phone" class="form-label">Phone Number</label>
+                <input type="text" name="phone" id="phone" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email Address</label>
+                <input type="email" name="email" id="email" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="role" class="form-label">Role</label>
+                <select name="role" id="role" class="form-select" required>
+                    <option value="">Select a role</option>
+                    <option value="Patient">Patient</option>
+                    <option value="Doctor">Doctor</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" name="username" id="username" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" name="password" id="password" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+        <span class="login-link">Already have an account? <a href="<%= request.getContextPath() %>/login.jsp">Login here</a></span>
+    </div>
 </div>
 
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
