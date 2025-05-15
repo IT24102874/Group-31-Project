@@ -21,9 +21,10 @@
       <label class="form-label">Password</label>
       <input type="password" class="form-control" name="password" required>
     </div>
+    <a class="nav-link" href="<%= request.getContextPath() %>/admin.jsp">Login</a>
     <button type="submit" class="btn btn-success">Login</button>
   </form>
-  <form action="<%= request.getContextPath() %>/login" method="post"></form>
+  <form action="<%= request.getContextPath() %>/" method="post"></form>
   <p class="mt-3">Don't have an account?
     <a href="<%= request.getContextPath() %>/register.jsp">Register here</a>
   </p>

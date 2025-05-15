@@ -36,7 +36,7 @@
             <div class="col-md-3">
                 <div class="card-box card-blue">
                     <h5>Total Users</h5>
-                    <p>1,234</p>
+                    <p>1</p>
                 </div>
             </div>
             <div class="col-md-3">
@@ -48,13 +48,13 @@
             <div class="col-md-3">
                 <div class="card-box card-blue">
                     <h5>Marked for Deletion</h5>
-                    <p>12</p>
+                    <p>0</p>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="card-box card-blue">
                     <h5>System Logs</h5>
-                    <p>87</p>
+                    <p>5</p>
                 </div>
             </div>
         </div>
