@@ -1,50 +1,32 @@
 package servlets;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import models.User;
-import utils.FileHandler;
-
+import jakarta.servlet.*;
+import jakarta.servlet.http.*;
+import jakarta.servlet.annotation.*;
 import java.io.IOException;
-import java.util.List;
 
-
-@WebServlet("/user_login")
+@WebServlet(name = "LoginServlet", value = "/admin")
 public class LoginServlet extends HttpServlet {
+    // Admin credentials (in real app, store securely in database with hashed passwords)
+    private static final String ADMIN_USERNAME = "secretAdmin";
+    private static final String ADMIN_PASSWORD = "superSecret123!";
+    private static final String ADMIN_PATH = "/hidden-admin-dashboard";
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
+        if (ADMIN_USERNAME.equals(username) && ADMIN_PASSWORD.equals(password)) {
+            // Create session and set admin attribute
+            HttpSession session = request.getSession();
+            session.setAttribute("isAdmin", true);
 
-        List<User> users = FileHandler.readUsersFromFile();
-
-        boolean isAuthenticated = false;
-
-
-        for (User user : users) {
-            if (user.getUserName().equals(username) && user.getPassword().equals(password)) {
-                isAuthenticated = true;
-                break;
-            }
-        }
-
-        if (isAuthenticated) {
-
-            response.sendRedirect("dashboard.html");
+            // Redirect to hidden admin dashboard
+            response.sendRedirect(request.getContextPath() + ADMIN_PATH);
         } else {
-
-            response.sendRedirect("login.jsp?error=Invalid Credentials");
+            // Invalid credentials - show error
+            request.setAttribute("errorMessage", "Invalid credentials");
+            request.getRequestDispatcher("/login.jsp").forward(request, response);
         }
-
-
     }
-
 }
