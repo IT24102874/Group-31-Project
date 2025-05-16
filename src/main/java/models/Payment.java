@@ -1,4 +1,4 @@
-public class Payment {
+
     package models;
 
     public class Payment {
@@ -28,4 +28,5 @@ public class Payment {
         public String getStatus() { return status; }
         public void setStatus(String status) { this.status = status; }
     }
-}
+
+
