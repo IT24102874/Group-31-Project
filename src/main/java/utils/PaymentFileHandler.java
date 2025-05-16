@@ -1,8 +1,5 @@
 package utils;
 
-public class PaymentFileHandler {
-    package utils;
-
 import models.Payment;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -27,4 +24,4 @@ import java.io.IOException;
             }
         }
     }
-}
+
