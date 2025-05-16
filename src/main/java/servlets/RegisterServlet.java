@@ -1,36 +1,48 @@
 package servlets;
-
-import java.io.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import models.User;
+import utils.FileHandler;
 
-@WebServlet("/register")
+import java.io.IOException;
+
+
+@WebServlet("/user_register")
 public class RegisterServlet extends HttpServlet {
-    private static final String FILE_PATH = "C:/Users/Rasith/Desktop/SLIIT/DSA/MedicalAppointmentSystem"; // Change path
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Get user inputs
-        String role = request.getParameter("role");
-        String specialization = request.getParameter("specialization"); // Only for doctors
+
         String name = request.getParameter("name");
-        String email = request.getParameter("email");
         String phone = request.getParameter("phone");
+        String email = request.getParameter("email");
+        String role = request.getParameter("role");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        // Save data to file
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, true))) {
-            writer.write(role + "," + specialization + "," + name + "," + email + "," +
-                    phone + "," + username + "," + password);
-            writer.newLine();
-        }
 
-        // Redirect to login page
-        response.sendRedirect("login.jsp");
+        User user = new User();
+        user.setName(name);
+        user.setPhoneNumber(phone);
+        user.setEmail(email);
+        user.setRole(role);
+        user.setUserName(username);
+        user.setPassword(password);
+
+        try {
+
+            FileHandler.writeUserToFile(user);
+            System.out.println("User registered successfully: " + username);
+
+
+            response.sendRedirect(request.getContextPath()+"/login.jsp");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
