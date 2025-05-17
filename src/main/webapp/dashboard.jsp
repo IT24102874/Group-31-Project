@@ -53,7 +53,7 @@
         Dr. ABC | May 7, 2025 | 10:00 AM
     </div>
 
-    <a href="bookappointment.jsp" class="btn btn-success btn-lg btn-block">Book Appointment</a>
+    <a href="appointment.jsp" class="btn btn-success btn-lg btn-block">Book Appointment</a>
     <a href="viewappointment.jsp" class="btn btn-info btn-lg btn-block">View Appointment</a>
     <a href="cancelappointment.jsp" class="btn btn-warning btn-lg btn-block">Cancel Appointment</a>
 </div>
