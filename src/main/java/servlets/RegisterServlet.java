@@ -1,31 +1,34 @@
 package servlets;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import models.User;
-import utils.FileHandler;
+import utils.FileHandler; // Import FileHandler to save data
 
 import java.io.IOException;
 
-
-@WebServlet("/user_register")
+/**
+ * Servlet for handling user registration.
+ */
+@WebServlet("/register") // This servlet is mapped to the "/register" URL
 public class RegisterServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        // Get form input values from request
+        String name = request.getParameter("name"); // Get user name
+        String phone = request.getParameter("phone"); // Get phone number
+        String email = request.getParameter("email"); // Get email
+        String role = request.getParameter("role"); // Get user role (Patient/Doctor)
+        String username = request.getParameter("username"); // Get username
+        String password = request.getParameter("password"); // Get password
 
-        String name = request.getParameter("name");
-        String phone = request.getParameter("phone");
-        String email = request.getParameter("email");
-        String role = request.getParameter("role");
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-
-
+        // Create a new User object and set its attributes
         User user = new User();
         user.setName(name);
         user.setPhoneNumber(phone);
@@ -35,14 +38,16 @@ public class RegisterServlet extends HttpServlet {
         user.setPassword(password);
 
         try {
-
+            // Save user data to file using FileHandler utility class
             FileHandler.writeUserToFile(user);
             System.out.println("User registered successfully: " + username);
 
-
-            response.sendRedirect(request.getContextPath()+"/login.jsp");
+            // Redirect to login page after successful registration
+            response.sendRedirect(request.getContextPath()+"/JSP/login.jsp");
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Print error details
         }
     }
 }
+
+
