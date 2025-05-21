@@ -11,26 +11,21 @@ import utils.PaymentFileHandler;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/Admin")
-public class AdminServlet extends HttpServlet {
+@WebServlet("/adminDashboard")
+public class AdminDashboardServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        HttpSession session = request.getSession(false);
-        if (session == null || !"admin".equals(session.getAttribute("loggedUser"))) {
-            response.sendRedirect("../login.jsp?error=Unauthorized+access");
-            return;
-        }
-
-        // Load users for account management
+        // Load users
         List<User> users = FileHandler.readUsersFromFile();
         request.setAttribute("users", users);
 
-        // Load payments for approval section
+        // Load payments
         List<Payment> payments = PaymentFileHandler.readAllPayments();
         request.setAttribute("payments", payments);
 
+        // Forward to admin dashboard JSP
         request.getRequestDispatcher("Admin.jsp").forward(request, response);
     }
 }
