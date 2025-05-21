@@ -1,17 +1,20 @@
 package models;
 
+/**
+ * Represents a user in the system.
+ */
 public class User {
-    private String name;
-    private String phoneNumber;
-    private String email;
-    private String role;
-    private String userName;
-    private String password;
+    protected String name; // User's full name
+    protected String phoneNumber; // User's phone number
+    protected String email; // User's email address
+    protected String role; // Role: Patient or Doctor
+    protected String userName; // Unique username
+    protected String password; // User's password
 
-
+    // Default constructor
     public User() {}
 
-
+    // Constructor with parameters
     public User(String name, String phoneNumber, String email, String role, String userName, String password) {
         this.name = name;
         this.phoneNumber = phoneNumber;
@@ -21,7 +24,7 @@ public class User {
         this.password = password;
     }
 
-
+    // Getter and Setter methods
 
     public String getName() {
         return name;
@@ -71,3 +74,4 @@ public class User {
         this.password = password;
     }
 }
+
