@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DoctorFileHandler {
-    private static final String FILE_PATH = "D:/USERS/Desktop/TDH/Sliit/OOP/sample/Medical/file/doctors.txt";
+    private static final String FILE_PATH = "C:/Users/dilun/OneDrive/Desktop/desktop/OOP/Project-31/appointments.txt";
 
     private static void ensureFileExists() throws IOException {
         File file = new File(FILE_PATH);
