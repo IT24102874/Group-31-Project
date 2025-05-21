@@ -58,7 +58,7 @@ public class Appointment {
     public String getQ3() { return q3; }
     public void setQ3(String q3) { this.q3 = q3; }
 
-    public String getStatus() { return "Pending"; }
+    public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
 
 }
