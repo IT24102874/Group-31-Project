@@ -4,17 +4,44 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import models.Appointment;
+import models.User;
 import utils.AppointmentFileHandler;
+import utils.FileHandler;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet("/appointment")
 public class AppointmentServlet extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        List<User> doctorList = new ArrayList<>();
+        List<User> allUsers = FileHandler.readUsersFromFile();
+
+        for (User user : allUsers) {
+            if ("Doctor".equalsIgnoreCase(user.getRole())) {
+                doctorList.add(user);
+            }
+        }
+
+        request.setAttribute("doctorList", doctorList);
+        request.getRequestDispatcher("/JSP/appointment.jsp").forward(request, response);
+    }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        HttpSession session = request.getSession(false);
+        User loggedUser = (session != null) ? (User) session.getAttribute("loggedUser") : null;
+        String username = (loggedUser != null) ? loggedUser.getUserName() : "unknown";
+
         Appointment appointment = new Appointment();
+        appointment.setUsername(username);
         appointment.setName(request.getParameter("patientName"));
         appointment.setAge(Integer.parseInt(request.getParameter("patientAge")));
         appointment.setContact(request.getParameter("contactNumber"));
@@ -28,10 +55,11 @@ public class AppointmentServlet extends HttpServlet {
 
         try {
             AppointmentFileHandler.writeAppointmentToFile(appointment);
-            System.out.println("Appointment written Successfully");
-            response.sendRedirect("payment.jsp");
+            System.out.println("Appointment written successfully for user: " + username);
+            response.sendRedirect(request.getContextPath() + "/JSP/payment.jsp");
         } catch (IOException e) {
             e.printStackTrace();
+            response.sendRedirect("error.jsp");
         }
     }
 }
