@@ -1,10 +1,24 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="models.User" %>
+<%@ page import="models.Appointment" %>
+<%@ page import="java.time.LocalDate" %>
+<%
+    User user = (User) session.getAttribute("loggedUser");
+
+    if (user == null || !"Patient".equals(user.getRole())) {
+        response.sendRedirect("login.jsp");
+        return;
+    }
+
+    Appointment appointment = (Appointment) request.getAttribute("appointment"); // from servlet
+    LocalDate today = LocalDate.now();
+%>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Cardio Care - Patient Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Bootstrap CSS (v5 CDN) -->
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .dashboard-container {
@@ -45,20 +59,25 @@
 
 <!-- Dashboard -->
 <div class="dashboard-container">
-    <h2 class="text-primary fw-bold mb-3">Welcome Anuja</h2>
-    <p class="text-muted">Today: May 5, 2025</p>
+    <h2 class="text-primary fw-bold mb-3">Welcome <%= user.getName() %></h2>
+    <p class="text-muted">Today: <%= today %></p>
 
+    <% if (appointment != null) { %>
     <div class="appointment-box mb-4">
         <strong>Your Next Appointment:</strong><br>
-        Dr. ABC | May 7, 2025 | 10:00 AM
+        <%= appointment.getDoctor() %> | <%= appointment.getDate() %> | <%= appointment.getTime() %>
     </div>
+    <% } else { %>
+    <p class="text-muted">You don't have any upcoming appointments.</p>
+    <% } %>
 
-    <a href="appointment.jsp" class="btn btn-success btn-lg btn-block">Book Appointment</a>
-    <a href="viewappointment.jsp" class="btn btn-info btn-lg btn-block">View Appointment</a>
+    <a href="${pageContext.request.contextPath}/appointment" class="btn btn-success btn-lg btn-block">Book Appointment</a>
+    <a href="${pageContext.request.contextPath}/myAppointments" class="btn btn-info btn-lg btn-block">View My Appointments</a>
+
     <a href="cancelappointment.jsp" class="btn btn-warning btn-lg btn-block">Cancel Appointment</a>
 </div>
 
-<!-- Bootstrap JS (optional if you use dropdowns/toggles) -->
+<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
