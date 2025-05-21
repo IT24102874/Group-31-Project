@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AppointmentFileHandler {
-    private static final String FILE_PATH = "D:/USERS/Desktop/TDH/Sliit/OOP/sample/Medical/file/appointments.txt";
+    private static final String FILE_PATH = "C:/Users/WEB NET LK/IdeaProjects/Group-31-Project/appointments.txt";
 
     private static void ensureFileExists() throws IOException {
         File file = new File(FILE_PATH);
