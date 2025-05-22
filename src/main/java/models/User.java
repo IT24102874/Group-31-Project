@@ -1,8 +1,6 @@
 package models;
 
-/**
- * Represents a user in the system.
- */
+
 public class User {
     protected String name; // User's full name
     protected String phoneNumber; // User's phone number
@@ -22,6 +20,13 @@ public class User {
         this.role = role;
         this.userName = userName;
         this.password = password;
+    }
+
+    public User(String userName, String password, String email, String role) {
+        this.userName = userName;
+        this.password = password;
+        this.email = email;
+        this.role = role;
     }
 
     // Getter and Setter methods
