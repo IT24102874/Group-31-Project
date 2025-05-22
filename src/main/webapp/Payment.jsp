@@ -17,6 +17,7 @@
     <div class="card shadow p-4">
         <h2 class="mb-4 text-center">Confirm Your Appointment</h2>
 
+
         <div class="mb-3">
             <ul class="list-group">
                 <li class="list-group-item"><strong>Patient Name:</strong> <%= appointment.getName() %></li>
