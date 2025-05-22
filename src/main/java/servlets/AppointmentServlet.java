@@ -29,7 +29,7 @@ public class AppointmentServlet extends HttpServlet {
         }
 
         request.setAttribute("doctorList", doctorList);
-        request.getRequestDispatcher("/JSP/appointment.jsp").forward(request, response);
+        request.getRequestDispatcher("appointment.jsp").forward(request, response);
     }
 
     @Override
@@ -56,7 +56,7 @@ public class AppointmentServlet extends HttpServlet {
         try {
             AppointmentFileHandler.writeAppointmentToFile(appointment);
             System.out.println("Appointment written successfully for user: " + username);
-            response.sendRedirect(request.getContextPath() + "/JSP/payment.jsp");
+            response.sendRedirect(request.getContextPath() + "/Payment.jsp");
         } catch (IOException e) {
             e.printStackTrace();
             response.sendRedirect("error.jsp");

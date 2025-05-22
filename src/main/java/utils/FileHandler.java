@@ -7,7 +7,7 @@ import java.util.List;
 
 
 public class FileHandler {
-    private static final String FILE_PATH = "C:/Users/Rasith/Desktop/SLIIT/DSA/MedicalAppointmentSystem/users.txt";
+    private static final String FILE_PATH = "C:/Users/Office/IdeaProjects/Group-31-Project/users.txt";
 
 
 
@@ -49,6 +49,23 @@ public class FileHandler {
             }
         }
         return users;
+    }
+
+
+    public static void writeUsersToFile(List<User> users) throws IOException {
+        ensureFileExists();
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, false))) { // overwrite file
+            for (User user : users) {
+                writer.write(user.getName() + "," +
+                        user.getPhoneNumber() + "," +
+                        user.getEmail() + "," +
+                        user.getRole() + "," +
+                        user.getUserName() + "," +
+                        user.getPassword());
+                writer.newLine();
+            }
+        }
     }
 }
 
