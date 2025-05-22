@@ -28,7 +28,7 @@ import java.util.List;
             List<Appointment> appointments = AppointmentFileHandler.getAppointmentsForUser(username);
 
             request.setAttribute("appointments", appointments);
-            request.getRequestDispatcher("/JSP/viewappointment.jsp").forward(request, response);
+            request.getRequestDispatcher("viewappointment.jsp").forward(request, response);
         }
     }
 

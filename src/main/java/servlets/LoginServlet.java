@@ -12,7 +12,7 @@ import utils.FileHandler;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/login")
+@WebServlet("/user_login")
 public class LoginServlet extends HttpServlet {
 
     private static final String ADMIN_USERNAME = "admin";
@@ -48,9 +48,9 @@ public class LoginServlet extends HttpServlet {
             String role = authenticatedUser.getRole();
 
             if ("Doctor".equalsIgnoreCase(role)) {
-                response.sendRedirect("JSP/Doctor.jsp");
+                response.sendRedirect("Doctor.jsp");
             } else if ("Patient".equalsIgnoreCase(role)) {
-                response.sendRedirect("JSP/dashboard.jsp");
+                response.sendRedirect("dashboard.jsp");
             } else {
                 response.sendRedirect("login.jsp?error=Unknown+role");
             }
