@@ -40,7 +40,7 @@ public class RegisterServlet extends HttpServlet {
             System.out.println("User registered successfully: " + username);
 
             // Redirect to login page after successful registration
-            response.sendRedirect(request.getContextPath()+"login.jsp");
+            response.sendRedirect(request.getContextPath()+"/login.jsp");
         } catch (Exception e) {
             e.printStackTrace(); // Print error details
         }

@@ -56,7 +56,7 @@ public class AppointmentServlet extends HttpServlet {
         try {
             AppointmentFileHandler.writeAppointmentToFile(appointment);
             System.out.println("Appointment written successfully for user: " + username);
-            response.sendRedirect(request.getContextPath() + "payment.jsp");
+            response.sendRedirect(request.getContextPath() + "/Payment.jsp");
         } catch (IOException e) {
             e.printStackTrace();
             response.sendRedirect("error.jsp");
