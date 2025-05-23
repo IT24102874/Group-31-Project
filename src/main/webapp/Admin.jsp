@@ -1,4 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.List" %>
+<%@ page import="models.User" %>
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,22 +11,10 @@
     <title>Admin Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
-            padding: 20px;
-        }
-        .dashboard-card {
-            padding: 20px;
-            border-radius: 10px;
-            background-color: #f8f9fa;
-        }
-        .card-box {
-            padding: 15px;
-            border-radius: 8px;
-            color: white;
-        }
-        .card-blue {
-            background-color: #0d6efd;
-        }
+        body { padding: 20px; }
+        .dashboard-card { padding: 20px; border-radius: 10px; background-color: #f8f9fa; }
+        .card-box { padding: 15px; border-radius: 8px; color: white; }
+        .card-blue { background-color: #0d6efd; }
     </style>
 </head>
 <body>
@@ -36,27 +29,15 @@
             <div class="col-md-3">
                 <div class="card-box card-blue">
                     <h5>Total Users</h5>
-                    <p>1</p>
+                    <p>
+                        <%
+                            List<User> users = (List<User>) request.getAttribute("users");
+                            out.print(users != null ? users.size() : 0);
+                        %>
+                    </p>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="card-box card-blue">
-                    <h5>Pending Approvals</h5>
-                    <p>5</p>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card-box card-blue">
-                    <h5>Marked for Deletion</h5>
-                    <p>0</p>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card-box card-blue">
-                    <h5>System Logs</h5>
-                    <p>5</p>
-                </div>
-            </div>
+            <!-- Add other summary cards here if needed -->
         </div>
 
         <!-- Manage User Accounts -->
@@ -67,61 +48,92 @@
                 <th>Username</th>
                 <th>Role</th>
                 <th>Email</th>
-                <th>Status</th>
+                <th>Action</th>
             </tr>
             </thead>
             <tbody>
+            <%
+                if (users != null) {
+                    for (User user : users) {
+            %>
             <tr>
-                <td>john123</td>
-                <td>Patient</td>
-                <td>john@example.com</td>
-                <td><button class="btn btn-danger btn-sm">Delete</button></td>
+                <td><%= user.getUserName() %></td>
+                <td><%= user.getRole() %></td>
+                <td><%= user.getEmail() %></td>
+                <td>
+                    <form action="deleteUser" method="post" onsubmit="return confirm('Delete user <%= user.getUserName() %>?');">
+                        <input type="hidden" name="username" value="<%= user.getUserName() %>">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </td>
             </tr>
-            <tr>
-                <td>doc.kate</td>
-                <td>Doctor</td>
-                <td>kate@example.com</td>
-                <td><button class="btn btn-danger btn-sm">Delete</button></td>
-            </tr>
-            <tr>
-                <td>mike456</td>
-                <td>Patient</td>
-                <td>mike@example.com</td>
-                <td><button class="btn btn-danger btn-sm">Delete</button></td>
-            </tr>
+            <%
+                    }
+                }
+            %>
             </tbody>
         </table>
+
 
         <!-- Approve Payments -->
         <h4>Approve Payments</h4>
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>Payment ID</th>
+                <th>Reference No</th>
                 <th>Patient</th>
-                <th>Amount</th>
+                <th>Doctor</th>
+                <th>Date</th>
+                <th>Time</th>
                 <th>Status</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
+            <%
+                List<models.Payment> payments = (List<models.Payment>) request.getAttribute("payments");
+                if (payments != null && !payments.isEmpty()) {
+                    for (models.Payment payment : payments) {
+                        models.Appointment appointment = payment.getAppointment();
+            %>
             <tr>
-                <td>1001</td>
-                <td>john123</td>
-                <td>$200.00</td>
+                <td><%= payment.getReferenceNumber() %></td>
+                <td><%= appointment.getName() %></td>
+                <td><%= appointment.getDoctor() %></td>
+                <td><%= appointment.getDate() %></td>
+                <td><%= appointment.getTime() %></td>
+                <td><%= payment.getStatus() %></td>
                 <td>
-                    <button class="btn btn-success btn-sm">Approve</button>
+                    <form action="<%= request.getContextPath() %>/ApprovePaymentServlet" method="post" class="d-inline">
+                        <input type="hidden" name="referenceNumber" value="<%= payment.getReferenceNumber() %>">
+                        <input type="hidden" name="action" value="accept">
+                        <button type="submit" class="btn btn-success btn-sm" <%= !"Pending".equals(payment.getStatus()) ? "disabled" : "" %>>
+                            Approve
+                        </button>
+                    </form>
+                    <form action="<%= request.getContextPath() %>/ApprovePaymentServlet" method="post" class="d-inline">
+                        <input type="hidden" name="referenceNumber" value="<%= payment.getReferenceNumber() %>">
+                        <input type="hidden" name="action" value="reject">
+                        <button type="submit" class="btn btn-danger btn-sm" <%= !"Pending".equals(payment.getStatus()) ? "disabled" : "" %>>
+                            Reject
+                        </button>
+                    </form>
                 </td>
             </tr>
+            <%
+                }
+            } else {
+            %>
             <tr>
-                <td>1002</td>
-                <td>mike456</td>
-                <td>$150.00</td>
-                <td>
-                    <button class="btn btn-danger btn-sm">Reject</button>
-                </td>
+                <td colspan="7">No payments found.</td>
             </tr>
+            <%
+                }
+            %>
             </tbody>
         </table>
+
+
 
         <a href="logout.jsp" class="btn btn-secondary mt-3">Logout</a>
     </div>

@@ -6,14 +6,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import models.User;
-import utils.FileHandler; // Import FileHandler to save data
-
+import utils.FileHandler;
 import java.io.IOException;
 
-/**
- * Servlet for handling user registration.
- */
-@WebServlet("/register") // This servlet is mapped to the "/register" URL
+
+@WebServlet("/user_register")
 public class RegisterServlet extends HttpServlet {
 
     @Override
@@ -43,7 +40,7 @@ public class RegisterServlet extends HttpServlet {
             System.out.println("User registered successfully: " + username);
 
             // Redirect to login page after successful registration
-            response.sendRedirect(request.getContextPath()+"/JSP/login.jsp");
+            response.sendRedirect(request.getContextPath()+"/login.jsp");
         } catch (Exception e) {
             e.printStackTrace(); // Print error details
         }
