@@ -1,3 +1,5 @@
+<%@ page import="java.util.List" %>
+<%@ page import="models.User" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,23 +11,23 @@
 <div class="container mt-5 mb-5">
     <div class="card shadow-lg p-4">
         <h2 class="mb-4 text-center">Book an Appointment</h2>
-        <form>
+        <form action="<%= request.getContextPath() %>/appointment" method="post">
             <!-- Patient Details -->
             <div class="mb-3">
                 <label for="patientName" class="form-label">Full Name</label>
-                <input type="text" class="form-control" id="patientName" required>
+                <input type="text" class="form-control" id="patientName" name="patientName" required>
             </div>
             <div class="mb-3">
                 <label for="patientAge" class="form-label">Age</label>
-                <input type="number" class="form-control" id="patientAge" required>
+                <input type="number" class="form-control" id="patientAge" name="patientAge" required>
             </div>
             <div class="mb-3">
                 <label for="contactNumber" class="form-label">Contact Number</label>
-                <input type="tel" class="form-control" id="contactNumber" required>
+                <input type="tel" class="form-control" id="contactNumber" name="contactNumber" required>
             </div>
             <div class="mb-3">
                 <label class="form-label">Gender</label>
-                <select class="form-select" required>
+                <select class="form-select" name="gender" required>
                     <option value="" disabled selected>Select Gender</option>
                     <option>Male</option>
                     <option>Female</option>
@@ -36,11 +38,18 @@
             <!-- Doctor Selection -->
             <div class="mb-3">
                 <label for="doctorSelect" class="form-label">Choose Doctor</label>
-                <select class="form-select" id="doctorSelect" required>
+                <select class="form-select" id="doctorSelect" name="doctor" required>
                     <option value="" disabled selected>Select Doctor</option>
-                    <option>Dr. Smith - Cardiologist</option>
-                    <option>Dr. Fernando - Cardiologist</option>
-                    <option>Dr. Perera - Consultant Cardiologist</option>
+                    <%
+                        List<User> doctorList = (List<User>) request.getAttribute("doctorList");
+                        if (doctorList != null) {
+                            for (User doctor : doctorList) {
+                    %>
+                    <option><%= doctor.getName() %> - <%= doctor.getRole() %></option>
+                    <%
+                            }
+                        }
+                    %>
                 </select>
             </div>
 
@@ -48,11 +57,11 @@
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="appointmentDate" class="form-label">Preferred Date</label>
-                    <input type="date" class="form-control" id="appointmentDate" required>
+                    <input type="date" class="form-control" id="appointmentDate" name="appointmentDate" required>
                 </div>
                 <div class="col-md-6 mb-3">
                     <label for="appointmentTime" class="form-label">Preferred Time</label>
-                    <input type="time" class="form-control" id="appointmentTime" required>
+                    <input type="time" class="form-control" id="appointmentTime" name="appointmentTime" required>
                 </div>
             </div>
 

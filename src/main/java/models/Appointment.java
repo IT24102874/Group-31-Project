@@ -13,6 +13,8 @@ public class Appointment {
     private String q2;
     private String q3;
     private String status;
+    //DSA requirements
+    private int urgencyScore;
 
 
     public Appointment() {}
@@ -23,6 +25,22 @@ public class Appointment {
         this.date = date;
         this.time = time;
     }
+
+    public Appointment(String username, String name, int age, String contact, String gender, String doctor, String date, String time, String q1, String q2, String q3, int urgencyScore) {
+        this.username = username;
+        this.name = name;
+        this.age = age;
+        this.contact = contact;
+        this.gender = gender;
+        this.doctor = doctor;
+        this.date = date;
+        this.time = time;
+        this.q1 = q1;
+        this.q2 = q2;
+        this.q3 = q3;
+        this.urgencyScore = urgencyScore;
+    }
+
 
     // Getters and Setters
     public String getUsername() { return username; }
@@ -60,5 +78,17 @@ public class Appointment {
 
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
+
+    // DSA requirements
+    public int getUrgencyScore()
+    {
+        return urgencyScore;
+    }
+
+    public void setUrgencyScore(int urgencyScore)
+    {
+        this.urgencyScore = urgencyScore;
+    }
+
 
 }

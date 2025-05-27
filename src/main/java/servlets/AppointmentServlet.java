@@ -32,6 +32,8 @@ public class AppointmentServlet extends HttpServlet {
         request.getRequestDispatcher("appointment.jsp").forward(request, response);
     }
 
+
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -39,6 +41,17 @@ public class AppointmentServlet extends HttpServlet {
         HttpSession session = request.getSession(false);
         User loggedUser = (session != null) ? (User) session.getAttribute("loggedUser") : null;
         String username = (loggedUser != null) ? loggedUser.getUserName() : "unknown";
+
+        //DSA requirement
+        String q1Answer = request.getParameter("q1");
+        String q2Answer = request.getParameter("q2");
+        String q3Answer = request.getParameter("q3");
+
+        int q1Score = mapAnswerToScore(q1Answer);
+        int q2Score = mapAnswerToScore(q2Answer);
+        int q3Score = mapAnswerToScore(q3Answer);
+
+        int urgencyScore = q1Score + q2Score + q3Score;
 
         Appointment appointment = new Appointment();
         appointment.setUsername(username);
@@ -49,9 +62,14 @@ public class AppointmentServlet extends HttpServlet {
         appointment.setDoctor(request.getParameter("doctor"));
         appointment.setDate(request.getParameter("appointmentDate"));
         appointment.setTime(request.getParameter("appointmentTime"));
-        appointment.setQ1(request.getParameter("q1"));
-        appointment.setQ2(request.getParameter("q2"));
-        appointment.setQ3(request.getParameter("q3"));
+        appointment.setQ1(String.valueOf(q1Score));
+        appointment.setQ2(String.valueOf(q2Score));
+        appointment.setQ3(String.valueOf(q3Score));
+        appointment.setUrgencyScore(urgencyScore);
+
+
+
+
 
         try {
             AppointmentFileHandler.writeAppointmentToFile(appointment);
@@ -62,4 +80,14 @@ public class AppointmentServlet extends HttpServlet {
             response.sendRedirect("error.jsp");
         }
     }
+
+    private int mapAnswerToScore(String answer) {
+        switch (answer.toLowerCase()) {
+            case "a": return 5;
+            case "b": return 3;
+            case "c": return 1;
+            default: return 0;
+        }
+    }
+
 }
