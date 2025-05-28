@@ -138,6 +138,7 @@ public class PriorityQueueHeap {
     }
 
     private int left(int i) {
+
         return 2 * i;
     }
 
